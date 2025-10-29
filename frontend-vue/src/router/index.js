@@ -5,11 +5,9 @@ import UnderConstruction from '../components/Framework/UnderConstruction.vue'
 import Dashboard_BO from '../components/Dashboard/dashboard_bo.vue'
 import DashboardStats from '../components/Dashboard/dashboardStats.vue'
 import Form_01 from '../components/Forms/Form_01.vue'
-import Dashboard_bo from '../components/Dashboard/dashboard_bo.vue'
 import AuthorizedPersonDetails from '../components/Authorized_Person_View/AuthorizedPersonDetails.vue'
 import Company_View from '../components/Company_Management/company_view.vue'
 import BeneficialOwners from '../components/Beneficial_Owner/Add_Beneficial_Owner.vue'
-import RegisterAuthorizedPerson from '../components/Forms/Form_04.vue'
 
 const routes = [
   {
@@ -48,6 +46,7 @@ const routes = [
       { path: 'company-view/:approvalNo/beneficial-owners', name: 'BeneficialOwners', component: BeneficialOwners, props: true},
      // { path: 'register-authorized-person', name: 'RegisterAuthorizedPerson', component: RegisterAuthorizedPerson, props: true },
       { path: 'register-authorized-person', name: 'RegisterAuthorizedPerson', component: () => import('../components/Forms/Form_04.vue'), props: true},
+      { path: 'form_06', name: 'Form_06', component: () => import('../components/Forms/Form_06.vue'), props: true},
     ]
   },
 
