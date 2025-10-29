@@ -47,6 +47,7 @@ const routes = [
      // { path: 'register-authorized-person', name: 'RegisterAuthorizedPerson', component: RegisterAuthorizedPerson, props: true },
       { path: 'register-authorized-person', name: 'RegisterAuthorizedPerson', component: () => import('../components/Forms/Form_04.vue'), props: true},
       { path: 'form_06', name: 'Form_06', component: () => import('../components/Forms/Form_06.vue'), props: true},
+      { path: 'registration', name: 'Incorporation', component: () => import('../components/Forms/incorporation.vue'), props: true},
     ]
   },
 
