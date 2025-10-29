@@ -1,9 +1,9 @@
 <template>
-  <div class="min-h-screen bg-gray-50 py-8">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="min-h-screen bg-gray-50 pt-6">
+    <div class="max-w-8xl mx-auto">
 
       <!-- Header -->
-      <header class="text-center mb-10">
+      <header class="text-center mb-10 mt-4">
         <h1 class="text-2xl font-bold text-gray-900 mb-2">FORM BO 01</h1>
         <p class="text-lg font-semibold text-gray-800 mb-2">
           Notice of Details of Beneficial Ownership of a Company
@@ -13,9 +13,9 @@
       <form @submit.prevent="submitForm" class="space-y-8">
 
         <!-- Company Information -->
-        <section class="bg-white rounded-md shadow-sm p-8 space-y-8">
+        <section class="bg-white rounded-md shadow-sm p-8 space-y-6">
           <h2 class="text-xl font-semibold text-gray-900">🏢 Company Information</h2>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 space-y-2">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Name Approval Number *</label>
               <input type="text" v-model="form.nameApprovalNumber" required placeholder="Enter name approval number"
@@ -40,8 +40,8 @@
         </section>
 
         <!-- Beneficial Owner 1 -->
-        <section class="bg-white rounded-md shadow-sm p-8 space-y-8">
-          <h2 class="text-xl font-semibold text-gray-900">👤 Beneficial Owner Details</h2>
+        <section class="bg-white rounded-md shadow-sm p-8 space-y-3">
+          <h2 class="text-xl font-semibold text-gray-900 mb-6">👤 Beneficial Owner Details</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
@@ -140,16 +140,16 @@
         </section>
 
         <!-- Additional Beneficial Owners -->
-<section class="bg-white rounded-lg shadow-md p-8 space-y-4">
-  <div class="flex justify-between items-center select-none border-b border-gray-200 pb-3">
-    <h2 class="text-lg font-semibold text-gray-900">
-      👥 Additional Beneficial Owners
-    </h2>
-    <button type="button" @click="addAdditionalOwner"
-      class="text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 px-3 py-1.5 rounded-md transition-shadow shadow-sm hover:shadow-md">
-      + Add Owner
-    </button>
-  </div>
+        <section class="bg-white rounded-lg shadow-md p-8 space-y-4">
+          <div class="flex justify-between items-center select-none border-b border-gray-200 pb-3">
+            <h2 class="text-lg font-semibold text-gray-900">
+              👥 Additional Beneficial Owners
+            </h2>
+            <button type="button" @click="addAdditionalOwner"
+              class="text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 px-3 py-1.5 rounded-md transition-shadow shadow-sm hover:shadow-md">
+              + Add Owner
+            </button>
+          </div>
 
           <div v-for="(owner, index) in form.additionalOwners" :key="index" class="border border-gray-200 rounded-md">
             <!-- Header -->
@@ -299,17 +299,21 @@
 <style scoped>
 .input-field {
   width: 100%;
-  padding: 0.5rem 0.75rem;
+  padding: 0.3rem 0.75rem;
   border: 1px solid #d1d5db;
   border-radius: 0.375rem;
   outline: none;
+  font-size: 0.95rem;
   transition: all 0.2s;
 }
 
 .input-field:focus {
-  border-color: #3b82f6;       /* Blue border on focus */
-  outline: none;               /* Remove default outline */
-  box-shadow: 0 0 0 1px #3b82f6; /* Adds a subtle blue focus ring */
+  border-color: #3b82f6;
+  /* Blue border on focus */
+  outline: none;
+  /* Remove default outline */
+  box-shadow: 0 0 0 1px #3b82f6;
+  /* Adds a subtle blue focus ring */
 }
 
 .signature-canvas {
@@ -334,35 +338,56 @@
 }
 
 .btn-submit {
-  font-size: 0.875rem; /* text-sm */
-  font-weight: 500; /* font-medium */
-  color: white; /* text-white */
-  background-color: #4f46e5; /* bg-indigo-600 */
-  padding: 0.375rem 1rem; /* px-4 py-1.5 */
-  border-radius: 0.375rem; /* rounded-md */
-  transition: all 0.3s ease; /* transition-shadow */
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05); /* shadow-sm */
+  font-size: 0.875rem;
+  /* text-sm */
+  font-weight: 500;
+  /* font-medium */
+  color: white;
+  /* text-white */
+  background-color: #4f46e5;
+  /* bg-indigo-600 */
+  padding: 0.375rem 1rem;
+  /* px-4 py-1.5 */
+  border-radius: 0.375rem;
+  /* rounded-md */
+  transition: all 0.3s ease;
+  /* transition-shadow */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  /* shadow-sm */
 }
 
 .btn-submit:hover {
-  background-color: #4338ca; /* hover:bg-indigo-700 */
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* hover:shadow-md */
+  background-color: #4338ca;
+  /* hover:bg-indigo-700 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* hover:shadow-md */
 }
 
 .btn-cancel {
-  font-size: 0.875rem; /* text-sm */
-  font-weight: 500; /* font-medium */
-  color: #374151; /* text-gray-700 */
-  background-color: white; /* bg-white */
-  border: 1px solid #d1d5db; /* border-gray-300 */
-  padding: 0.375rem 1rem; /* px-4 py-1.5 */
-  border-radius: 0.375rem; /* rounded-md */
+  font-size: 0.875rem;
+  /* text-sm */
+  font-weight: 500;
+  /* font-medium */
+  color: #374151;
+  /* text-gray-700 */
+  background-color: white;
+  /* bg-white */
+  border: 1px solid #d1d5db;
+  /* border-gray-300 */
+  padding: 0.375rem 1rem;
+  /* px-4 py-1.5 */
+  border-radius: 0.375rem;
+  /* rounded-md */
   transition: all 0.3s ease;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05); /* subtle shadow */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  /* subtle shadow */
 }
+
 .btn-cancel:hover {
-  background-color: #f3f4f6; /* hover:bg-gray-100 */
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* hover shadow */
+  background-color: #f3f4f6;
+  /* hover:bg-gray-100 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* hover shadow */
 }
 
 .fade-enter-active,
@@ -448,46 +473,40 @@ export default {
       collapsedOwners: [],
     };
   },
+
   computed: {
     isFormValid() {
-      const baseValid =
-        this.form.nameApprovalNumber &&
-        this.form.companyName &&
-        this.form.companyType &&
-        this.form.owner1.fullName &&
-        this.form.owner1.dob &&
-        this.form.owner1.placeOfBirth &&
-        this.form.owner1.nationality &&
-        this.form.owner1.countryOfResidence &&
-        this.form.owner1.residentialAddress &&
-        this.form.owner1.ownershipStatement &&
-        this.form.owner1.digitalSignature &&
-        this.form.owner1.signatureDate &&
-        this.form.owner1.declaration &&
-        this.form.beneficialOwnerSignature &&
-        this.form.beneficialOwnerDate &&
-        this.form.presentedBy.fullName &&
-        this.form.presentedBy.designation &&
-        this.form.presentedBy.email &&
-        this.form.presentedBy.mobile &&
-        this.form.presentedBy.address &&
-        this.form.presentedBy.digitalSignature &&
-        this.form.presentedBy.date &&
-        this.form.presentedBy.declaration;
+      const requiredFields = [
+        this.form.nameApprovalNumber,
+        this.form.companyName,
+        this.form.companyType,
+        this.form.owner1.fullName,
+        this.form.owner1.dob,
+        this.form.owner1.placeOfBirth,
+        this.form.owner1.nationality,
+        this.form.owner1.countryOfResidence,
+        this.form.owner1.residentialAddress,
+        this.form.owner1.postalAddress,
+        this.form.owner1.email,
+        this.form.owner1.contactDetails,
+        this.form.owner1.identificationNumber,
+        this.form.owner1.ownershipStatement,
+        this.form.presentedBy.fullName,
+        this.form.presentedBy.designation,
+        this.form.presentedBy.email,
+        this.form.presentedBy.date,
+      ];
 
-      // Check additional owners signatures
-      const additionalOwnersValid = this.form.additionalOwners.every(
-        (owner) =>
-          owner.digitalSignature &&
-          owner.fullName &&
-          owner.dob &&
-          owner.nationality &&
-          owner.ownershipPercentage
-      );
+      // Check if any required field is empty
+      const baseValid = requiredFields.every((field) => !!field && field.trim() !== "");
+
+      // Additional Owners (optional but if added, must have fullName)
+      const additionalOwnersValid = this.form.additionalOwners.every((owner) => !!owner.fullName);
 
       return baseValid && additionalOwnersValid;
     },
   },
+
   mounted() {
     this.initializeCanvases();
     // Set current date and time for signature dates

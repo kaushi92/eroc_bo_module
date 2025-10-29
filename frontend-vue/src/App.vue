@@ -4,7 +4,7 @@
     <Header v-if="!isBOPage" />
 
     <!-- Main content -->
-    <main class="flex-grow mt-4">
+    <main class="flex-grow">
       <router-view /> <!-- Dashboard will render here automatically -->
     </main>
 
@@ -25,10 +25,14 @@ export default {
         '/login',
         '/under-construction',
         '/beneficial-ownership-dashboard',
-        '/dashboard_bo'
+        '/dashboard_bo',
+        '/authorized-person-details',
+        '/RegisterAuthorizedPerson'
       ]
       return hiddenRoutes.some(path => this.$route.path.startsWith(path))
     }
   }
 }
 </script>
+
+

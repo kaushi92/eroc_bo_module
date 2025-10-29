@@ -95,9 +95,14 @@ export default {
   methods: {
     handleLogin() {
       if (this.username && this.password) {
-        this.$router.push({
-          path: `/dashboard_bo/${this.username}`  // redirect to dashboard with username
-        });
+        // Example logic – you can replace this with backend validation
+        const isFirstLogin = true; // Replace this with API check
+
+        if (isFirstLogin) {
+          this.$router.push('/authorized-person-details');
+        } else {
+          this.$router.push(`/dashboard_bo/${this.username}`);
+        }
       } else {
         alert('Please enter your username and password');
       }

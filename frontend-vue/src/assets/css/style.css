@@ -7,6 +7,8 @@
 @plugin "flowbite/plugin";
 @source "../node_modules/flowbite";
 
-body {
-  /* font-family: 'Tinos', serif; */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
