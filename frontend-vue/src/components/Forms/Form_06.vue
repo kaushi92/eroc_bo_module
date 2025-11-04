@@ -4,7 +4,7 @@
 
             <!-- Header -->
             <header class="text-center mb-10 mt-4">
-                <h1 class="text-2xl font-bold text-gray-900 mb-2">
+                <h1 class="text-2xl font-bold text-gray-900 mb-2 text-transform: uppercase">
                     <i class="bi bi-person-badge text-indigo-600 text-2xl"></i>
                     Reporting, Receiving Details of Beneficial Owners
                 </h1>

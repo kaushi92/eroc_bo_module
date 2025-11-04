@@ -13,12 +13,14 @@ const routes = [
   {
     path: '/', // Dashboard is your landing page
     name: 'Dashboard',
-    component: Dashboard
+    component: Dashboard,
+    meta: { title: 'eROC - Main Dashboard' }
   },
   {
     path: '/login',
     name: 'Login',
-    component: LoginView
+    component: LoginView,
+    meta: { title: 'BO - Login' }
   },
   {
     path: '/under-construction',
@@ -55,6 +57,7 @@ const routes = [
     path: '/authorized-person-details',
     name: 'AuthorizedPersonDetails',
     component: AuthorizedPersonDetails,
+    meta: { title: 'Complete Profile' }
   },
 
 
@@ -63,6 +66,10 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes
-})
+});
+
+router.afterEach((to) => {
+  document.title = to.meta.title || 'Default App Name';
+});
 
 export default router

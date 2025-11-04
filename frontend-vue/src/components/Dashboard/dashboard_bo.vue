@@ -56,10 +56,10 @@
           <h2 class="text-lg md:text-xl font-semibold text-gray-800">{{ pageTitle }}</h2>
         </div>
 
-        <!-- Right Section -->
+        <!-- Right Section - Profile -->
         <div class="flex items-center gap-4">
-          <input type="text" placeholder="Search..."
-            class="hidden md:block border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-300" />
+          <!-- <input type="text" placeholder="Search..."
+            class="hidden md:block border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-300" /> -->
           <div class="flex items-center gap-2">
             <div class="text-right hidden md:block">
               <p class="text-sm font-medium text-gray-700">{{ displayUsername }}</p>

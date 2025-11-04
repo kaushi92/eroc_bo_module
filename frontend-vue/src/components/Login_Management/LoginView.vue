@@ -22,15 +22,11 @@
           <p class="Description">
             Easily register, update, and manage beneficial ownership details for companies.
             Ensure compliance with regulatory requirements and maintain transparency in company ownership records.
-            Securely log in using your ROC credentials.
-          </p>
-
-          <!-- Register Link -->
-          <p class="Register_Link">
-            New to the system?
-            <router-link to="/register" class="Hyper_link">
-              Register here
-            </router-link>
+            Securely log in using your ROC credentials to access the Beneficial Ownership Registration portal.
+            Through this system, authorized users can file, verify, and maintain ownership data in a centralized and
+            secure platform.
+            Stay compliant with the Companies Act and related regulations while enhancing the integrity of corporate
+            governance.
           </p>
         </div>
 
@@ -38,7 +34,8 @@
         <form @submit.prevent="handleLogin"
           class="bg-white rounded-xl p-6 sm:p-8 space-y-4 max-w-md md:ml-auto max-md:mx-auto w-full shadow-2xl">
 
-          <h2 class="text-slate-900 text-2xl sm:text-3xl font-bold mb-6">
+          <!-- eROC Logo -->
+          <h2 class="text-slate-900 text-2xl sm:text-3xl font-bold mb-6 text-center">
             Sign In
           </h2>
 
@@ -74,8 +71,23 @@
 
           <!-- Info Note -->
           <p class="mt-4 text-center text-gray-500 text-sm">
-            Access the Beneficial Ownership Registration system using your ROC credentials.
+            Access the Beneficial Ownership Registration system using your eROC credentials.
           </p>
+
+          <!-- Register Link (One Row) -->
+          <div class="mt-3 flex items-center justify-center gap-2 text-center">
+            <p class="Register_Link text-gray-700 m-0">
+              <a href="https://eroc.drc.gov.lk/" target="_blank" rel="noopener noreferrer" class="Hyper_link">
+                Create New Account
+              </a>
+            </p>
+            <a href="https://eroc.drc.gov.lk/" target="_blank" rel="noopener noreferrer">
+              <img src="../../assets/img/eROC.png" alt="eROC Logo"
+                class="w-10 h-10 object-contain hover:scale-105 transition-transform duration-200" />
+            </a>
+          </div>
+
+
         </form>
 
       </div>
@@ -95,9 +107,7 @@ export default {
   methods: {
     handleLogin() {
       if (this.username && this.password) {
-        // Example logic – you can replace this with backend validation
-        const isFirstLogin = true; // Replace this with API check
-
+        const isFirstLogin = true; // Replace this with actual backend check
         if (isFirstLogin) {
           this.$router.push('/authorized-person-details');
         } else {
@@ -134,16 +144,6 @@ input::placeholder {
   color: #9ca3af;
 }
 
-.Register_Link {
-  margin-top: 2rem;
-  font-size: 14px;
-  color: #ffffff;
-  font-weight: 400;
-  font-style: normal;
-  letter-spacing: 0.2px;
-
-}
-
 .Description {
   margin-top: 1rem;
   font-size: 17px;
@@ -151,26 +151,29 @@ input::placeholder {
   line-height: 1.6;
   text-align: justify;
   font-family: 'tinos', serif;
-  font-style: normal;
-  font-weight: 400;
 }
 
 .Heading {
-  font-size: 34px;
+  font-size: 30px;
   font-weight: 700;
   color: #ffffff;
   line-height: 1.2;
   font-family: 'tinos', sans-serif;
-  letter-spacing: 0.01em;
-  margin-top: 30px;
-  ;
+  letter-spacing: 0.02em;
+  margin-top: 20px;
 }
 
 .Hyper_link {
-  color: #FCD34D;
+  color: #d65008;
   font-weight: 600;
-  text-decoration: underline;
   margin-left: 0.3rem;
+  font-size: 11px;
+}
+
+.Register_Link {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
 }
 
 .dep_name {
@@ -185,23 +188,19 @@ input::placeholder {
 .login_btn {
   width: 100%;
   background-color: #4F46E5;
-  /* Indigo-600 */
   height: 42px;
   color: #ffffff;
   padding: 0.3rem;
   font-size: 1.125rem;
-  /* 18px */
   font-weight: 600;
   border: none;
   border-radius: 0.5rem;
-  /* 8px */
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.15s ease;
 }
 
 .login_btn:hover {
   background-color: #4338CA;
-  /* Indigo-700 */
   transform: translateY(-2px);
 }
 
@@ -212,6 +211,5 @@ input::placeholder {
 .login_btn:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.5);
-  /* Indigo-500 */
 }
 </style>
