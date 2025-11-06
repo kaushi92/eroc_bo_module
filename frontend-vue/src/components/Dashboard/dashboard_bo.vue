@@ -96,6 +96,7 @@ export default {
         { id: "reg_auth_person", label: "Register Authorized Person", icon: "bi bi-person-badge", route: "/dashboard_bo/register-authorized-person" },
         { id: "form_06", label: "Reporting, Receiving Details", icon: "bi bi-person-badge", route: "/dashboard_bo/form_06" },
         { id: "form_01", label: "Registration", icon: "bi bi-person-badge", route: "/dashboard_bo/incorporation" },
+        { id: "company_list", label: "Company List", icon: "bi bi-list", route: "/dashboard_bo/company-list" },
       ],
     };
   },
@@ -148,6 +149,8 @@ export default {
           return `/dashboard_bo/${username}/form_06`;
         case "form_01":
           return `/dashboard_bo/${username}/registration`;
+        case "company_list":
+          return `/dashboard_bo/${username}/company-list`;
         default:
           return "#";
       }

@@ -45,13 +45,13 @@
             class="menu-container"
             id="navbar-default"
           >
-            <ul>
+            <!-- <ul>
               <li><router-link to="/landing-page" active-class="active">Home</router-link></li>
               <li><router-link to="/about" active-class="active">About</router-link></li>
               <li><router-link to="/services" active-class="active">Services</router-link></li>
               <li><router-link to="/pricing" active-class="active">Pricing</router-link></li>
               <li><router-link to="/contact" active-class="active">Contact</router-link></li>
-            </ul>
+            </ul> -->
           </div>
         </transition>
       </div>

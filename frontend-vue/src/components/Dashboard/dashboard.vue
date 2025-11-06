@@ -13,19 +13,13 @@
     </div>
 
     <!-- ✅ Cards Section (Flex-based for centering last row) -->
-    <div
-      class="flex flex-wrap justify-center gap-8 mb-8"
-    >
-      <!-- Card 1 -->
-      <div
-        @click="goToLogin"
-        class="cursor-pointer bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden w-full sm:w-[46%] lg:w-[31%] max-w-lg min-w-[300px]"
-      >
-        <img
-          src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80"
-          alt="Beneficial Ownership"
-          class="w-full h-60 object-cover"
-        />
+    <div class="flex flex-wrap justify-center gap-8 mb-8">
+
+      <!-- Beneficial Ownership Card -->
+      <div @click="goToBeneficialOwnership"
+        class="cursor-pointer bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden w-full sm:w-[46%] lg:w-[31%] max-w-lg min-w-[300px]">
+        <img src="https://plus.unsplash.com/premium_photo-1664476845274-27c2dabdd7f0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170"
+          alt="Beneficial Ownership" class="w-full h-60 object-cover" />
         <div class="card-content">
           <h2 class="card-title">Beneficial Ownership</h2>
           <p class="card-text">
@@ -35,15 +29,10 @@
       </div>
 
       <!-- Card 2 -->
-      <div
-        @click="goToUnderConstruction"
-        class="cursor-pointer bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden w-full sm:w-[46%] lg:w-[31%] max-w-lg min-w-[300px]"
-      >
-        <img
-          src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1200&q=80"
-          alt="Portcity Module"
-          class="w-full h-60 object-cover"
-        />
+      <div @click="goToUnderConstruction"
+        class="cursor-pointer bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden w-full sm:w-[46%] lg:w-[31%] max-w-lg min-w-[300px]">
+        <img src="https://images.unsplash.com/photo-1472148439583-1f4cf81b80e0?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1331"
+          alt="Portcity Module" class="w-full h-60 object-cover" />
         <div class="card-content">
           <h2 class="card-title">Portcity Module</h2>
           <p class="card-text">
@@ -53,15 +42,10 @@
       </div>
 
       <!-- Card 3 -->
-      <div
-        @click="goToUnderConstruction"
-        class="cursor-pointer bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden w-full sm:w-[46%] lg:w-[31%] max-w-lg min-w-[300px]"
-      >
-        <img
-          src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80"
-          alt="Secretary Registration"
-          class="w-full h-60 object-cover"
-        />
+      <div @click="goToUnderConstruction"
+        class="cursor-pointer bg-white rounded-xl shadow-md hover:shadow-lg transition overflow-hidden w-full sm:w-[46%] lg:w-[31%] max-w-lg min-w-[300px]">
+        <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1172"
+          alt="Secretary Registration" class="w-full h-60 object-cover" />
         <div class="card-content">
           <h2 class="card-title">Secretary Registration</h2>
           <p class="card-text">
@@ -101,12 +85,13 @@
 export default {
   data() {
     return {
+      username: localStorage.getItem('username') || 'User', // retrieve saved login username
       selected: null
     };
   },
   methods: {
-    goToLogin() {
-      this.$router.push("/login");
+    goToBeneficialOwnership() {
+      this.$router.push(`/dashboard_bo/${this.username}`);
     },
     goToUnderConstruction() {
       this.$router.push("/under-construction");
@@ -116,7 +101,8 @@ export default {
 </script>
 
 <style scoped>
-h1, h2 {
+h1,
+h2 {
   font-family: "Poppins", sans-serif;
 }
 

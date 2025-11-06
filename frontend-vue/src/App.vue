@@ -1,38 +1,29 @@
 <template>
   <div class="flex flex-col min-h-screen">
     <!-- Header -->
-    <Header v-if="!isBOPage" />
+    <Header v-if="showHeaderFooter" />
 
     <!-- Main content -->
     <main class="flex-grow">
-      <router-view /> <!-- Dashboard will render here automatically -->
+      <router-view /> <!-- Dashboard or other pages render here -->
     </main>
 
     <!-- Footer -->
-    <Footer v-if="!isBOPage" />
+    <Footer v-if="showHeaderFooter" />
   </div>
 </template>
 
 <script>
 import Header from './components/Framework/Header.vue'
 import Footer from './components/Framework/Footer.vue'
+
 export default {
   components: { Header, Footer },
   computed: {
-    isBOPage() {
-      // Hide Header/Footer on Login, UnderConstruction, BeneficialOwnership, and dashboard_bo routes
-      const hiddenRoutes = [
-        '/login',
-        '/under-construction',
-        '/beneficial-ownership-dashboard',
-        '/dashboard_bo',
-        '/authorized-person-details',
-        '/RegisterAuthorizedPerson'
-      ]
-      return hiddenRoutes.some(path => this.$route.path.startsWith(path))
+    showHeaderFooter() {
+      // Only show header/footer for dashboard route
+      return this.$route.path.startsWith('/main-dashboard')
     }
   }
 }
 </script>
-
-

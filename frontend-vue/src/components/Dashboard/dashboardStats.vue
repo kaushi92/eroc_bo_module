@@ -1,153 +1,191 @@
 <template>
-  <div class="pt-6 space-y-8">
-    <!-- Quick Actions -->
-    <div class="flex justify-end gap-3">
-      <button
-        class="bg-indigo-600 text-white text-sm px-4 py-2 rounded-lg hover:bg-indigo-700 flex items-center gap-1">
-        <i class="bi bi-plus-lg"></i> New Registration
-      </button>
-      <button
-        class="border border-indigo-600 text-indigo-600 text-sm px-4 py-2 rounded-lg hover:bg-indigo-50 flex items-center gap-1">
-        <i class="bi bi-download"></i> Export Report
-      </button>
-    </div>
-
-    <!-- Stat Cards -->
-    <div class="grid gap-6 md:grid-cols-3 lg:grid-cols-6">
-      <div v-for="card in statCards" :key="card.label" class="bg-white rounded-2xl shadow p-5">
-        <div class="flex justify-between items-center mb-2">
-          <h3 class="text-gray-600 text-sm font-medium">{{ card.label }}</h3>
-          <i :class="card.icon"></i>
+  <div class="min-h-screen flex flex-col bg-gray-50">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-indigo-900 via-indigo-800 to-sky-700 text-white py-4 px-6 shadow">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+        <div>
+          <h1 class="text-2xl font-semibold">Beneficial Ownership Dashboard</h1>
+          <p class="text-sm text-indigo-100 mt-1">
+            Welcome back, <span class="font-medium">{{ username }}</span> ({{ role }})
+          </p>
         </div>
-        <p class="text-3xl font-bold text-indigo-600">{{ card.value }}</p>
-        <p class="text-xs text-gray-500 mt-1">{{ card.subtext }}</p>
+        <div class="flex gap-3 mt-3 sm:mt-0">
+          <button
+            class="bg-amber-500 text-white px-4 py-2 rounded-lg shadow hover:bg-amber-600 transition"
+          >
+            + Register New BO
+          </button>
+          <button
+            class="bg-white text-indigo-800 px-4 py-2 rounded-lg shadow hover:bg-indigo-50 transition"
+          >
+            View All Companies
+          </button>
+        </div>
       </div>
-    </div>
+    </header>
 
-    <!-- Trends Chart -->
-    <div class="bg-white rounded-2xl shadow p-5">
-      <h3 class="text-lg font-semibold text-gray-800 mb-4">Registration Trends (Last 6 Months)</h3>
-      <canvas id="registrationsChart" height="100"></canvas>
-    </div>
-
-    <!-- Recent Registrations Table -->
-    <div class="bg-white rounded-2xl shadow p-5">
-      <div class="flex justify-between items-center mb-6 mt-2">
-        <h3 class="text-lg font-semibold text-gray-800">Recent Registrations</h3>
-        <button
-          class="flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-indigo-700 rounded-lg hover:text-indigo-800 cursor-pointer">
-          View All
-          <i class="bi bi-arrow-right-short text-base"></i>
-        </button>
-      </div>
-      <div class="overflow-x-auto rounded-lg">
-        <table class="min-w-full text-sm border-collapse rounded-lg">
-          <thead class="bg-indigo-100 text-indigo-800 uppercase text-xs font-semibold tracking-wider">
-            <tr>
-              <th class="text-left px-4 py-3">Company Name</th>
-              <th class="text-left px-4 py-3">Reg. No</th>
-              <th class="text-left px-4 py-3">Owner</th>
-              <th class="text-left px-4 py-3">Date</th>
-              <th class="text-center px-4 py-3">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="row in recentRegistrations" :key="row.id"
-              class="border-b border-gray-200 hover:bg-gray-50 transition-colors">
-              <td class="px-4 py-3 font-medium text-gray-800">{{ row.company }}</td>
-              <td class="px-4 py-3 text-gray-600">{{ row.regNo }}</td>
-              <td class="px-4 py-3 text-gray-600">{{ row.owner }}</td>
-              <td class="px-4 py-3 text-gray-600">{{ row.date }}</td>
-              <td class="px-4 py-3 text-center">
-                <span
-                  class="inline-flex justify-center items-center w-24 py-1.5 text-xs font-semibold rounded-full uppercase"
-                  :class="{
-                    'bg-green-100 text-green-700': row.status === 'Approved',
-                    'bg-yellow-100 text-yellow-700': row.status === 'Pending',
-                    'bg-red-100 text-red-700': row.status === 'Rejected'
-                  }">
-                  {{ row.status }}
-                </span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Recent Activities -->
-    <div class="bg-white rounded-2xl shadow p-5">
-      <h3 class="text-lg font-semibold text-gray-800 mb-4">Recent Activities</h3>
-      <ul class="space-y-4">
-        <li v-for="activity in activities" :key="activity.id" class="flex items-start">
-          <i :class="activity.icon + ' text-indigo-600 mr-3 text-lg'"></i>
-          <div>
-            <p class="text-gray-800 text-sm font-medium">{{ activity.text }}</p>
-            <p class="text-xs text-gray-500">{{ activity.time }}</p>
+    <!-- Main Content -->
+    <main class="flex-1 p-6 space-y-8">
+      <!-- Stats Section -->
+      <section>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div
+            v-for="card in stats"
+            :key="card.label"
+            class="bg-white p-5 rounded-xl shadow hover:shadow-md transition"
+          >
+            <div class="flex justify-between items-center">
+              <div>
+                <p class="text-sm text-gray-500">{{ card.label }}</p>
+                <p class="text-2xl font-semibold text-gray-800 mt-1">{{ card.value }}</p>
+              </div>
+              <div class="text-indigo-600 text-3xl">
+                <i :class="card.icon"></i>
+              </div>
+            </div>
           </div>
-        </li>
-      </ul>
-    </div>
+        </div>
+      </section>
+
+      <!-- Main Grid -->
+      <div class="grid lg:grid-cols-3 gap-6">
+        <!-- Company Cards -->
+        <section class="lg:col-span-2">
+          <h2 class="text-lg font-semibold text-gray-700 mb-4">Your Companies</h2>
+          <div
+            class="grid sm:grid-cols-2 xl:grid-cols-3 gap-5"
+          >
+            <div
+              v-for="company in companies"
+              :key="company.approvalNo"
+              class="bg-white p-5 rounded-xl shadow hover:shadow-lg border-t-4 transition"
+              :class="{
+                'border-green-500': company.status === 'Active',
+                'border-yellow-500': company.status === 'Pending',
+                'border-gray-400': company.status === 'Draft'
+              }"
+            >
+              <p class="text-xs text-gray-500 mb-1">
+                Name Approval No: {{ company.approvalNo }}
+              </p>
+              <h3 class="text-base font-semibold text-gray-800">
+                {{ company.name }}
+              </h3>
+              <p class="text-sm text-gray-600">
+                {{ company.type }}
+              </p>
+
+              <span
+                class="inline-block mt-2 text-xs px-2 py-1 rounded-full font-medium"
+                :class="{
+                  'bg-green-100 text-green-700': company.status === 'Active',
+                  'bg-yellow-100 text-yellow-700': company.status === 'Pending',
+                  'bg-gray-100 text-gray-700': company.status === 'Draft'
+                }"
+              >
+                {{ company.status }}
+              </span>
+
+              <div class="mt-4">
+                <button
+                  class="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition"
+                  @click="goToRegister(company.approvalNo)"
+                >
+                  BO Register
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Sidebar -->
+        <aside class="space-y-6">
+          <!-- Recent Activities -->
+          <div class="bg-white rounded-xl shadow p-5">
+            <h2 class="text-lg font-semibold text-gray-700 mb-3">Recent Activities</h2>
+            <ul class="space-y-2">
+              <li
+                v-for="(activity, i) in activities"
+                :key="i"
+                class="text-sm text-gray-600 flex items-start"
+              >
+                <span class="text-indigo-500 mt-1 mr-2">•</span>
+                <span>{{ activity }}</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Notifications -->
+          <div class="bg-white rounded-xl shadow p-5">
+            <h2 class="text-lg font-semibold text-gray-700 mb-3">Notifications</h2>
+            <ul class="space-y-2">
+              <li
+                v-for="(note, i) in notifications"
+                :key="i"
+                class="text-sm text-gray-600 flex items-start"
+              >
+                <span class="text-yellow-500 mt-1 mr-2">
+                  <i class="bi bi-bell-fill"></i>
+                </span>
+                <span>{{ note }}</span>
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer
+      class="bg-gray-800 text-gray-300 text-center py-3 text-sm mt-auto"
+    >
+      © 2025 Department of Registrar of Companies — Beneficial Ownership System
+    </footer>
   </div>
 </template>
 
 <script>
-import Chart from "chart.js/auto";
-
 export default {
+  props: ['username'],
   data() {
     return {
-      statCards: [
-        { label: "Total Companies", value: 245, icon: "bi bi-building-fill text-indigo-600", subtext: "Active in system" },
-        { label: "Beneficial Owners", value: 1320, icon: "bi bi-person-badge-fill text-indigo-600", subtext: "Registered entities" },
-        { label: "Pending Approvals", value: 12, icon: "bi bi-hourglass-split text-indigo-600", subtext: "Awaiting verification" },
-        { label: "Rejected Forms", value: 5, icon: "bi bi-x-circle-fill text-red-500", subtext: "Need correction" },
-        { label: "Monthly Registrations", value: 58, icon: "bi bi-calendar-check text-indigo-600", subtext: "This month" },
-        { label: "Positive Feedback", value: "92%", icon: "bi bi-emoji-smile text-green-500", subtext: "User satisfaction" },
+      role: 'Secretary',
+      stats: [
+        { label: 'Total Companies', value: 8, icon: 'bi bi-building' },
+        { label: 'Beneficial Owners', value: 26, icon: 'bi bi-people' },
+        { label: 'Pending BOs', value: 3, icon: 'bi bi-hourglass-split' },
+        { label: 'Completed BOs', value: 23, icon: 'bi bi-check-circle' },
       ],
-      recentRegistrations: [
-        { id: 1, company: "Alpha Holdings (Pvt) Ltd", regNo: "BO/2025/001", owner: "John Doe", date: "2025-10-12", status: "Approved" },
-        { id: 2, company: "GreenEnergy Lanka", regNo: "BO/2025/002", owner: "Kavindu Perera", date: "2025-10-14", status: "Pending" },
-        { id: 3, company: "Techwave Solutions", regNo: "BO/2025/003", owner: "Nimali Silva", date: "2025-10-15", status: "Approved" },
-        { id: 4, company: "OceanTrade Imports", regNo: "BO/2025/004", owner: "Amal Fernando", date: "2025-10-16", status: "Rejected" },
+      companies: [
+        { approvalNo: 'NA12345', name: 'Sunrise Holdings (Pvt) Ltd', type: 'Private Limited', status: 'Active' },
+        { approvalNo: 'NA67890', name: 'Blue Ocean PLC', type: 'Public Limited', status: 'Pending' },
+        { approvalNo: 'NA24680', name: 'GreenTech Innovations', type: 'Private Limited', status: 'Draft' },
+        { approvalNo: 'NA11122', name: 'Skyline Properties', type: 'Private Limited', status: 'Active' },
+        { approvalNo: 'NA33344', name: 'NextWave Technologies', type: 'Private Limited', status: 'Pending' },
+        { approvalNo: 'NA55566', name: 'Oceanic Exports', type: 'Public Limited', status: 'Active' },
       ],
       activities: [
-        { id: 1, text: "BO/2025/004 rejected by verification team", time: "2 hours ago", icon: "bi bi-x-circle" },
-        { id: 2, text: "New company registered: OceanTrade Imports", time: "5 hours ago", icon: "bi bi-building" },
-        { id: 3, text: "BO details updated for GreenEnergy Lanka", time: "Yesterday", icon: "bi bi-pencil-square" },
-        { id: 4, text: "Officer Priyan logged in", time: "2 days ago", icon: "bi bi-person-check" },
+        'Registered BO for GreenTech (Pvt) Ltd - 2 hours ago',
+        'Updated company details: Blue Ocean PLC - 1 day ago',
+        'Submitted Form 01 for Sunrise Holdings - 3 days ago',
+      ],
+      notifications: [
+        '2 BO forms pending submission',
+        '3 companies have incomplete details',
+        'New company added recently',
       ],
     };
   },
-  mounted() {
-    const ctx = document.getElementById("registrationsChart");
-    new Chart(ctx, {
-      type: "line",
-      data: {
-        labels: ["May", "Jun", "Jul", "Aug", "Sep", "Oct"],
-        datasets: [
-          {
-            label: "Registrations",
-            data: [30, 45, 60, 48, 75, 58],
-            borderColor: "#4f46e5",
-            backgroundColor: "rgba(79,70,229,0.1)",
-            tension: 0.4,
-            fill: true,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        plugins: { legend: { display: false } },
-        scales: { y: { beginAtZero: true } },
-      },
-    });
+  methods: {
+    goToRegister(approvalNo) {
+      this.$router.push(`/dashboard_bo/${this.username}/company-view/${approvalNo}/beneficial-owners`);
+    },
   },
 };
 </script>
 
 <style scoped>
-canvas {
-  width: 100% !important;
+h1, h2, h3 {
+  font-family: 'Poppins', sans-serif;
 }
 </style>
