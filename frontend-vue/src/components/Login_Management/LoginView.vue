@@ -144,8 +144,11 @@ export default {
         localStorage.removeItem("rememberedPassword");
         localStorage.removeItem("rememberFlag");
       }
-      // ✅ Navigate to Beneficial Ownership Dashboard with username
-      this.$router.push('/main-dashboard');
+      // ✅ Save username for dashboard header
+      localStorage.setItem("loggedInUser", this.username);
+
+      // Redirect to main dashboard
+      this.$router.push("/main-dashboard");
     }
   }
 };
