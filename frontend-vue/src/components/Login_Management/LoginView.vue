@@ -29,15 +29,16 @@
 
           <h2 class="text-slate-900 text-2xl sm:text-3xl font-bold mb-6 text-center">Sign In</h2>
 
-          <!-- Username -->
+          <!-- Email -->
           <div>
-            <label for="username" class="block text-gray-700 mb-1 font-medium">Username</label>
-            <input type="text" id="username" v-model.trim="username" placeholder="Enter your ROC username"
+            <label for="email" class="block text-gray-700 mb-1 font-medium">Email</label>
+            <input type="email" id="email" v-model.trim="email" placeholder="Enter your email address"
               class="w-full px-4 py-2 sm:py-2.5 border border-gray-300 rounded-lg focus:ring-1 focus:ring-indigo-500 focus:border-transparent transition" />
             <transition name="fade">
-              <p v-if="errors.username" class="text-red-600 text-sm mt-1">{{ errors.username }}</p>
+              <p v-if="errors.email" class="text-red-600 text-sm mt-1">{{ errors.email }}</p>
             </transition>
           </div>
+
 
           <!-- Password -->
           <div>
@@ -97,7 +98,7 @@
 export default {
   data() {
     return {
-      username: "",
+      email: "",
       password: "",
       rememberMe: false,
       showPassword: false,
@@ -107,7 +108,7 @@ export default {
   mounted() {
     const rememberFlag = localStorage.getItem("rememberFlag");
     if (rememberFlag === "true") {
-      this.username = localStorage.getItem("rememberedUsername") || "";
+      this.email = localStorage.getItem("rememberedEmail") || "";
       this.password = localStorage.getItem("rememberedPassword") || "";
       this.rememberMe = true;
     }
@@ -118,12 +119,15 @@ export default {
     },
     validateForm() {
       this.errors = {};
-      if (!this.username) {
-        this.errors.username = "Username is required.";
-      } else if (/\s/.test(this.username)) {
-        this.errors.username = "Username should not contain spaces.";
+
+      // Email validation
+      if (!this.email) {
+        this.errors.email = "Email is required.";
+      } else if (!/^\S+@\S+\.\S+$/.test(this.email)) {
+        this.errors.email = "Enter a valid email address.";
       }
 
+      // Password validation
       if (!this.password) {
         this.errors.password = "Password is required.";
       } else if (this.password.length < 6) {
@@ -136,16 +140,16 @@ export default {
       if (!this.validateForm()) return;
 
       if (this.rememberMe) {
-        localStorage.setItem("rememberedUsername", this.username);
+        localStorage.setItem("rememberedEmail", this.email);
         localStorage.setItem("rememberedPassword", this.password);
         localStorage.setItem("rememberFlag", "true");
       } else {
-        localStorage.removeItem("rememberedUsername");
+        localStorage.removeItem("rememberedEmail");
         localStorage.removeItem("rememberedPassword");
         localStorage.removeItem("rememberFlag");
       }
       // ✅ Save username for dashboard header
-      localStorage.setItem("loggedInUser", this.username);
+      localStorage.setItem("loggedInUser", this.email);
 
       // Redirect to main dashboard
       this.$router.push("/main-dashboard");
