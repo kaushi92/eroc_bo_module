@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-screen bg-gray-50 overflow-hidden">
+  <div class="flex h-screen bg-slate-100 overflow-hidden">
     <!-- Sidebar -->
     <aside :class="[
       'fixed lg:static inset-y-0 left-0 z-20 bg-indigo-900 text-white flex flex-col transition-all duration-300 ease-in-out',
@@ -43,7 +43,7 @@
       class="fixed inset-0 bg-black opacity-30 z-10 lg:hidden"></div>
 
     <!-- Main Content -->
-    <div class="flex-1 flex flex-col">
+    <div class="flex-1 flex flex-col bg-gray-100">
       <!-- Header -->
       <!-- Header -->
       <header
@@ -174,7 +174,14 @@ body {
 }
 
 .router-link-active {
-  background-color: #4338ca;
+  background-color: #150b81;
   color: #fff !important;
+}
+aside {
+  background-color: #08045b; /* Deep Blue */
+  
+}
+header {
+  background: linear-gradient(to right, #08045b, #2c1b99, #623be1);
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen flex flex-col bg-gray-50">
+  <div class="min-h-screen flex flex-col bg-slate-100">
 
     <!-- Main Content -->
     <main class="flex-1 p-6 space-y-8">
@@ -31,13 +31,12 @@
         <section>
           <h2 class="text-lg font-semibold text-gray-700 mb-4">Your Companies</h2>
           <div class="grid sm:grid-cols-2 lg:grid-cols-2 gap-6">
-            <div v-for="company in companies" :key="company.approvalNo" class="relative bg-white p-6 sm:p-8 rounded-xl shadow hover:shadow-lg border-t-4 transition
+            <div v-for="company in companies" :key="company.approvalNo" class="relative bg-[#f1f8ff] p-6 sm:p-8 rounded-xl shadow hover:shadow-lg border-t-4 transition
             sm:min-h-[240px] lg:min-h-[280px]" :class="{
               'border-green-500': company.status === 'Active',
               'border-yellow-500': company.status === 'Pending',
               'border-gray-400': company.status === 'Draft'
             }">
-
               <!-- Status Badge: Positioned Top-Right -->
               <span class="absolute top-4 right-4 text-xs sm:text-sm px-3 py-1.5 rounded-full font-medium" :class="{
                 'text-[#2ecc71]': company.status === 'Active',   // bright green
@@ -46,8 +45,6 @@
               }">
                 {{ company.status }}
               </span>
-
-
               <!-- Card Content -->
               <p class="text-base sm:text-sm text-gray-500 mb-2">
                 Name Approval No: {{ company.approvalNo }}
@@ -59,25 +56,26 @@
                 {{ company.type }}
               </p>
 
-              <!-- Action Buttons -->
-              <div class="mt-12 flex flex-wrap gap-3">
+              <div class="mt-12 flex flex-wrap gap-3 lg:justify-center">
                 <button
-                  class="flex-1 sm:flex-none min-w-[120px] bg-[#6ea8b5] text-white py-2 sm:py-3 rounded-lg hover:bg-[#5b8b9b] transition">
+                  class="flex-1 sm:flex-none min-w-[120px] bg-[#6ea8b5] text-white text-sm py-1.5 sm:py-2.5 rounded-lg hover:bg-[#5b8b9b] transition">
                   BO Register
                 </button>
                 <button
-                  class="flex-1 sm:flex-none min-w-[120px] bg-[#845ec2] text-white py-2 sm:py-3 rounded-lg hover:bg-[#6f4ca8] transition">
+                  class="flex-1 sm:flex-none min-w-[120px] bg-[#845ec2] text-white text-sm py-1.5 sm:py-2.5 rounded-lg hover:bg-[#6f4ca8] transition">
                   Update Info
                 </button>
                 <button
-                  class="flex-1 sm:flex-none min-w-[120px] bg-[#B3AC87] text-white py-2 sm:py-3 rounded-lg hover:bg-[#645c50] transition">
+                  class="flex-1 sm:flex-none min-w-[120px] bg-[#B3AC87] text-white text-sm py-1.5 sm:py-2.5 rounded-lg hover:bg-[#645c50] transition">
                   View Reports
                 </button>
                 <button
-                  class="flex-1 sm:flex-none min-w-[120px] bg-[#c34a36] text-white py-2 sm:py-3 rounded-lg hover:bg-[#a73828] transition">
-                  Other Changes 
+                  class="flex-1 sm:flex-none min-w-[120px] bg-[#c34a36] text-white text-sm py-1.5 sm:py-2.5 rounded-lg hover:bg-[#a73828] transition">
+                  Other Changes
                 </button>
               </div>
+
+
 
             </div>
           </div>
@@ -161,7 +159,7 @@ export default {
 </script>
 
 <style scoped>
-h1,
+h1,*
 h2,
 h3 {
   font-family: 'Poppins', sans-serif;
