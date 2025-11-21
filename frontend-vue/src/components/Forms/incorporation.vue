@@ -14,7 +14,7 @@
       </header>
 
       <!-- Company Information -->
-      <section class="bg-white rounded-md shadow-sm p-8 space-y-6">
+      <!-- <section class="bg-white rounded-md shadow-sm p-8 space-y-6">
         <h2 class="text-xl font-semibold text-gray-900">🏢 Company Information</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -41,8 +41,7 @@
             </select>
           </div>
         </div>
-
-      </section>
+      </section> -->
 
       <!-- Beneficial Owner Details -->
       <section class="bg-white rounded-md shadow-sm p-8 space-y-6">
@@ -177,7 +176,8 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">NIC Number *</label>
-              <input v-model="form.nic" type="text" class="input-field" placeholder="Enter NIC number" />
+              <input v-model="form.nic" @input="validateNICInput" type="text" class="input-field"
+                placeholder="Enter NIC number" />
               <p v-if="errors.nic" class="text-red-600 text-sm mt-1">{{ errors.nic }}</p>
             </div>
 
@@ -194,8 +194,9 @@
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Tax Identification Number</label>
-              <input type="text" v-model="form.taxId" class="input-field" placeholder="TIN Number" />
-              <p v-if="errors.tin" class="text-red-600 text-sm mt-1">{{ errors.tin }}</p>
+              <input v-model="form.taxId" @input="validateTINInput" type="text" class="input-field"
+                placeholder="TIN Number" />
+              <p v-if="errors.taxId" class="text-red-600 text-sm mt-1">{{ errors.taxId }}</p>
             </div>
           </div>
 
@@ -290,7 +291,7 @@ const errors = reactive({
 
 const handleSubmit = () => {
   if (!validateForm()) {
-    return;
+    return; // Stop submission if validation fails
   }
 
   console.log("Form submitted", form);
@@ -302,23 +303,51 @@ const validateTIN = (tin) => {
   return tinRegex.test(tin);
 };
 
+const formatNIC = () => {
+  // Convert last character to uppercase if old NIC format
+  if (form.nic.length === 10) {
+    const firstNine = form.nic.slice(0, 9);
+    const lastChar = form.nic.slice(-1).toUpperCase();
+    form.nic = firstNine + lastChar;
+  }
+};
+
+const owners = reactive([]);
+
+const validateTINInput = () => {
+  // Only allow digits
+  form.taxId = form.taxId.replace(/[^0-9]/g, "");
+
+  // Limit to 9 digits (Sri Lankan TIN)
+  if (form.taxId.length > 9) form.taxId = form.taxId.slice(0, 9);
+};
+
 const validateForm = () => {
-  errors.nicOrPassport = "";   // At least ONE field must be filled
-  errors.tin = "";
-  // Validate NIC or Passport 
-  if (!form.nic || form.nic.trim() === "") {
-    errors.nicOrPassport = "NIC number is required.";
-    return false;
+  let valid = true;
+
+  // NIC is mandatory
+  if (!form.nic) {
+    errors.nic = "NIC is required.";
+    valid = false;
+  }
+  // Validate NIC format
+  else if (!/^\d{9}[VvXx]$/.test(form.nic) && !/^\d{12}$/.test(form.nic)) {
+    errors.nic = "NIC must be 9 digits followed by V/X or 12 digits.";
+    valid = false;
+  } else {
+    errors.nic = "";
   }
 
-  // Validate TIN
-  if (form.taxId && !validateTIN(form.taxId)) {
-    errors.tin = "Tax Identification Number must be exactly 9 digits.";
-    return false;
+  // TIN is optional, but if entered, must be 9 digits
+  if (form.taxId && !/^\d{9}$/.test(form.taxId)) {
+    errors.tin = "TIN must be exactly 9 digits.";
+    valid = false;
+  } else {
+    errors.tin = "";
   }
 
-  return true;
-}
+  return valid;
+};
 
 watch(() => form.taxId, (newVal) => {
   if (newVal && !/^\d{9}$/.test(newVal)) {
