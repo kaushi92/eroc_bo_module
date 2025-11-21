@@ -41,6 +41,7 @@
             </select>
           </div>
         </div>
+
       </section>
 
       <!-- Beneficial Owner Details -->
@@ -111,7 +112,15 @@
 
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Nationality *</label>
-              <input type="text" v-model="form.nationality" required placeholder="Nationality" class="input-field" />
+              <select v-model="form.religion" required class="input-field">
+                <option value="" disabled>Select Religion</option>
+                <option value="Buddhist">Buddhist</option>
+                <option value="Hindu">Hindu</option>
+                <option value="Islam">Islam / Muslim</option>
+                <option value="Christian (Catholic)">Christian (Catholic)</option>
+                <option value="Christian (Other)">Christian (Other)</option>
+                <option value="Other">Other</option>
+              </select>
             </div>
           </div>
 
@@ -133,8 +142,9 @@
           <!-- Row 4 -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Business Address</label>
-              <input type="text" v-model="form.businessAddress" placeholder="Business Address" class="input-field" />
+              <label class="block text-sm font-medium text-gray-700 mb-2">Business Address *</label>
+              <input type="text" v-model="form.businessAddress" placeholder="Business Address" class="input-field"
+                required />
             </div>
 
             <div>
@@ -164,70 +174,78 @@
           </div>
 
           <!-- NIC Number -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">NIC Number</label>
-            <input v-model="form.nic" type="text" class="input-field" placeholder="Enter NIC number" />
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">NIC Number *</label>
+              <input v-model="form.nic" type="text" class="input-field" placeholder="Enter NIC number" />
+              <p v-if="errors.nic" class="text-red-600 text-sm mt-1">{{ errors.nic }}</p>
+            </div>
+
+            <!-- Passport Number -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Passport Number</label>
+              <input v-model="form.passport" type="text" class="input-field" placeholder="Enter Passport number" />
+            </div>
+
+            <!-- Error message -->
+            <p v-if="errors.nicOrPassport" class="text-red-600 text-sm mt-1 md:col-span-2">
+              {{ errors.nicOrPassport }}
+            </p>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Tax Identification Number</label>
+              <input type="text" v-model="form.taxId" class="input-field" placeholder="TIN Number" />
+              <p v-if="errors.tin" class="text-red-600 text-sm mt-1">{{ errors.tin }}</p>
+            </div>
           </div>
 
-          <!-- Passport Number -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Passport Number</label>
-            <input v-model="form.passport" type="text" class="input-field" placeholder="Enter Passport number" />
+          <!-- Statement of Beneficial Ownership -->
+          <div grid grid-cols-1 md:grid-cols-1>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              Statement of Beneficial Ownership *
+            </label>
+
+            <div class="space-y-3 text-gray-700 text-sm">
+
+              <label class="flex items-center gap-2">
+                <input type="radio" v-model="form.statementType" value="shares" required />
+                Ownership or control of shares (over 10%)
+              </label>
+
+              <label class="flex items-center gap-2">
+                <input type="radio" v-model="form.statementType" value="voting" required />
+                Voting rights (over 10%)
+              </label>
+
+              <label class="flex items-center gap-2">
+                <input type="radio" v-model="form.statementType" value="control" required />
+                Effective control
+              </label>
+            </div>
+
+            <!-- Extra field only if control is selected -->
+            <div v-if="form.statementType === 'control'" class="mt-4">
+              <label class="block text-sm font-medium text-gray-700 mb-2">
+                Describe the nature of effective control *
+              </label>
+              <textarea v-model="form.effectiveControlDetails" rows="4" class="input-field resize-none"
+                placeholder="Describe the nature of effective control" required></textarea>
+            </div>
           </div>
 
-          <!-- Error message -->
-          <p v-if="errors.nicOrPassport" class="text-red-600 text-sm mt-1">
-            {{ errors.nicOrPassport }}
-          </p>
-
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Tax Identification Number</label>
-            <input type="text" v-model="form.taxId" class="input-field" placeholder="TIN Number" />
+          <!-- Submit -->
+          <div class="flex justify-end mt-8">
+            <button class="bg-indigo-600 text-white font-medium px-6 py-2 rounded-lg hover:bg-indigo-700">
+              Submit Details
+            </button>
           </div>
+
+
+        </form>
+      </section> <!-- closes Beneficial Owner Details section -->
+
+
     </div>
-
-    <!-- Statement of Beneficial Ownership -->
-    <div>
-      <label class="block text-sm font-medium text-gray-700 mb-2">
-        Statement of Beneficial Ownership *
-      </label>
-
-      <div class="space-y-3 text-gray-700 text-sm">
-
-        <label class="flex items-center gap-2">
-          <input type="radio" v-model="form.statementType" value="shares" required />
-          Ownership or control of shares (over 10%)
-        </label>
-
-        <label class="flex items-center gap-2">
-          <input type="radio" v-model="form.statementType" value="voting" required />
-          Voting rights (over 10%)
-        </label>
-
-        <label class="flex items-center gap-2">
-          <input type="radio" v-model="form.statementType" value="control" required />
-          Effective control
-        </label>
-      </div>
-
-      <!-- Extra field only if control is selected -->
-      <div v-if="form.statementType === 'control'" class="mt-4">
-        <label class="block text-sm font-medium text-gray-700 mb-2">
-          Describe the nature of effective control *
-        </label>
-        <textarea v-model="form.effectiveControlDetails" rows="4" class="input-field resize-none"
-          placeholder="Describe the nature of effective control" required></textarea>
-      </div>
-    </div>
-
-    <!-- Submit -->
-    <div class="flex justify-end mt-8">
-      <button class="bg-indigo-600 text-white font-medium px-6 py-2 rounded-lg hover:bg-indigo-700">
-        Submit Details
-      </button>
-    </div>
-
-    </form>
   </section>
 
 
@@ -235,13 +253,13 @@
 
 <script setup>
 import { reactive } from "vue";
+import { watch } from "vue";
 
 const form = reactive({
   nicOrPassport: "",
   nameApprovalNumber: "",
   companyName: "",
   companyType: "",
-
   title: "",
   gender: "",
   fullName: "",
@@ -256,13 +274,18 @@ const form = reactive({
   postalAddress: "",
   email: "",
   contact: "",
-
   nic: "",
   passport: "",
   taxId: "",
-
   statementType: "",
   effectiveControlDetails: "",
+});
+
+const errors = reactive({
+  nicOrPassport: "",
+  tin: "",
+  nic: "",
+
 });
 
 const handleSubmit = () => {
@@ -274,18 +297,50 @@ const handleSubmit = () => {
   alert("Beneficial Owner details submitted successfully!");
 };
 
+const validateTIN = (tin) => {
+  const tinRegex = /^\d{9}$/; // exactly 9 digits
+  return tinRegex.test(tin);
+};
 
 const validateForm = () => {
-  errors.nicOrPassport = "";
+  errors.nicOrPassport = "";   // At least ONE field must be filled
+  errors.tin = "";
+  // Validate NIC or Passport 
+  if (!form.nic || form.nic.trim() === "") {
+    errors.nicOrPassport = "NIC number is required.";
+    return false;
+  }
 
-  // At least ONE field must be filled
-  if (!form.nic && !form.passport) {
-    errors.nicOrPassport = "Please enter NIC or Passport Number.";
+  // Validate TIN
+  if (form.taxId && !validateTIN(form.taxId)) {
+    errors.tin = "Tax Identification Number must be exactly 9 digits.";
     return false;
   }
 
   return true;
-};
+}
+
+watch(() => form.taxId, (newVal) => {
+  if (newVal && !/^\d{9}$/.test(newVal)) {
+    errors.tin = "TIN must be a 9-digit number.";
+  } else {
+    errors.tin = "";
+  }
+})
+
+watch(() => form.nic, (newVal) => {
+  // NIC is mandatory
+  if (!newVal) {
+    errors.nic = "NIC is required.";
+  }
+  // Optional: Validate NIC format (e.g., old 9-digit + letter or new 12-digit format)
+  else if (!/^\d{9}[VvXx]$/.test(newVal) && !/^\d{12}$/.test(newVal)) {
+    errors.nic = "NIC must be 9 digits followed by V/X or 12 digits.";
+  } else {
+    errors.nic = "";
+  }
+});
+
 </script>
 
 <style scoped>
